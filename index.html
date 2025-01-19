@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Mind the Heat</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+</head>
+
+<body>
+    <div class="box controls">
+        <h1 class="title">MIND THE HEAT</h1>
+        <div class="field is-grouped">
+            <div class="control">
+                <button id="info-button" class="button info-button">
+                    <img src="img/comment-question.png" alt="Info" class="button-icon">
+                </button>
+            </div>
+            <div class="control button-group">
+                <button id="dark-mode-button" class="button mode-button">
+                    <img src="img/night-mode.png" alt="Dark Mode" class="button-icon">
+                </button>
+                <button id="light-mode-button" class="button mode-button">
+                    <img src="img/brightness.png" alt="Light Mode" class="button-icon">
+                </button>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control is-grouped">
+                <input type="text" id="search-bar" class="input" placeholder="Search for a street or neighborhood">
+                <button id="search-button" class="search button">
+                    <img src="img/search-interface-symbol.png" alt="Search" class="button-icon">
+                </button>
+            </div>
+        </div>
+        <div class="section">
+            <div class="field">
+                <label for="city-select" class="label">City:</label>
+                <div class="control">
+                    <select id="city-select" class="select">
+                        <option value="amsterdam">Amsterdam</option>
+                    </select>
+                </div>
+            </div>
+            <div class="field">
+                <label for="neighborhood-select" class="label">Neighborhood:</label>
+                <div class="control">
+                    <select id="neighborhood-select" class="select">
+                        <option value="all">---</option>
+                    </select>
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <button id="reset-button" class="button reset-button">Reset to City View</button>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="field">
+                <label class="label">Filter</label>
+            </div>
+            <div class="field" id="shade-slider-container">
+                <div class="control">
+                    <label for="shade-slider">Shade percentage is less than: <strong><span
+                                id="shade-slider-value">100</span>%</strong></label>
+                </div>
+                <div class="control">
+                    <input type="range" id="shade-slider" min="0" max="100" step="10" value="0" />
+                </div>
+            </div>
+            <div class="field" id="pet-slider-container">
+                <div class="control">
+                    <label for="pet-slider">Mean PET is higher than: <strong><span
+                                id="pet-slider-value">0</span>&#8451;</strong></label>
+                </div>
+                <div class="control">
+                    <input type="range" id="pet-slider" min="25" max="45" step="1" value="0" />
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="field">
+                <label class="label">Additional Layers</label>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <label class="checkbox">
+                        <input type="checkbox" id="cluster-checkbox">
+                        Show essential service clusters
+                    </label>
+                </div>
+            </div>
+
+        </div>
+        <div class="legend control" style="margin-top: auto;">
+            <div class="legend-section">
+                <div class="legend-title">Heat Stress Risk</div>
+                <div class="legend-content">
+                    <div class="legend-gradient"></div>
+                    <div class="legend-text-container">
+                        <div class="legend-item">High risk</div>
+                        <div class="legend-item">Medium risk</div>
+                        <div class="legend-item">Low risk</div>
+                    </div>
+                </div>
+            </div>
+            <div class="legend-section">
+                <div class="legend-title">Pedestrian Intensity</div>
+                <div class="legend-content">
+                    <div class="legend-line-container">
+                        <div class="legend-item">
+                            <div class="legend-line thick"></div>
+                            <span>High</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-line medium"></div>
+                            <span>Medium</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-line thin"></div>
+                            <span>Low</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="map"></div>
+    <div id="info-box" class="info-box box" style="display: none;">
+        <button class="close-button" onclick="closeInfoBox()">
+            <img src="img/right.png" alt="Close" class="close-icon">
+        </button>
+        <div>
+            <div class="final-score"></div>
+            <div class="street-name"></div>
+        </div>
+        <div class="chart-container">
+            <div id="chart1" class="chart-section">
+                <div class="chart-title">Modelled Pedestrian Intensity</div>
+            </div>
+            <div id="chart2" class="chart-section">
+                <div class="chart-title">Shade Index</div>
+            </div>
+            <div id="chart3" class="chart-section">
+                <div class="chart-title">PET Mean</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="usage-modal" class="modal is-active">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="box">
+                <p>Welcome to the <strong>Mind the Heat</strong> dashboard. <br> Here are some tips to get you started:
+                </p>
+                <ul>
+                    <li>Select a city from the dropdown menu.</li>
+                    <li>Choose a neighborhood to view detailed information.</li>
+                    <li>Click on streets to see more data and charts.</li>
+                    <li>Use the reset button to return to the city view.</li>
+                    <li>Adjust the sliders to filter streets based on specific criteria.</li>
+                    <li>Toggle the checkbox to view additional layers.</li>
+                </ul>
+                <p>We use 40% shade coverage and 35 Celcius PET Degrees as thresholds. Streets with shade coverage
+                    greater than 40% and PET Degrees less than 35 Celcius are considered low risk. The final score is
+                    the sum of the standardized scores of these two factors, and the street color reflects this score.
+                </p>
+                <p>Pedestrian intensity is also considered, represented by the street width.</p>
+                <p>In the city view, we only show the top 4% high-risk streets, which we consider high priority. In
+                    neighborhood mode, you can view information for all streets. For more information, please click <a
+                        href="https://github.com/JulianWDev/mindtheheat/wiki">here</a>.
+                </p>
+                <button id="close-modal" class="button got-it-button">Got it!</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="map.js"></script>
+    <script src="street.js"></script>
+    <script>
+        document.body.classList.add('light-mode');
+        document.getElementById('close-modal').addEventListener('click', function () {
+            document.getElementById('usage-modal').classList.remove('is-active');
+            document.getElementById('usage-modal').style.display = 'none';
+        });
+
+        document.getElementById('info-button').addEventListener('click', function () {
+            document.getElementById('usage-modal').classList.add('is-active');
+            document.getElementById('usage-modal').style.display = 'flex';
+        });
+
+        document.getElementById('dark-mode-button').addEventListener('click', function () {
+            document.body.classList.add('dark-mode');
+            document.body.classList.remove('light-mode');
+            switchToDarkMode();
+        });
+
+        document.getElementById('light-mode-button').addEventListener('click', function () {
+            document.body.classList.add('light-mode');
+            document.body.classList.remove('dark-mode');
+            switchToLightMode();
+        });
+
+        document.getElementById('cluster-checkbox').addEventListener('change', function () {
+            const neighborhoodIndex = document.getElementById('neighborhood-select').value;
+            updateMap(neighborhoodIndex === 'all' ? 'all' : parseInt(neighborhoodIndex));
+        });
+
+
+    </script>
+
+</html>
