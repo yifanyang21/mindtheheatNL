@@ -52,30 +52,30 @@ function handleClick(e) {
 
 function getRiskLevel(properties) {
     if (properties.PET === 0) {
-        return 'no data';
+        return 'geen gegevens';
     } else if (properties.Final_score_all >= 0.75) {
-        return 'High risk';
+        return 'Hoog risico';
     } else if (properties.Final_score_all >= 0.5) {
-        return 'Medium risk';
+        return 'Gemiddeld risico';
     }
-    return 'Low risk';
+    return 'Laag risico';
 }
 
 function getStreetName(properties) {
-    return properties.name && properties.name !== '0' ? properties.name : 'Unnamed';
+    return properties.name && properties.name !== '0' ? properties.name : 'Naamloos';
 }
 
 function getFlowLevel(properties) {
     if (properties.jenkins_bin === 'bin_4' || properties.jenkins_bin === 'bin_3') {
-        return 'High intensity';
+        return 'Hoge intensiteit';
     } else if (properties.jenkins_bin === 'bin_2') {
-        return 'Medium intensity';
+        return 'Gemiddelde intensiteit';
     }
-    return 'Low intensity';
+    return 'Lage intensiteit';
 }
 
 function getShadeLevel(properties) {
-    return properties.sum_adjust >= 12 ? 'Insufficient shade' : 'Sufficient shade';
+    return properties.sum_adjust >= 12 ? 'Onvoldoende schaduw' : 'Voldoende schaduw';
 }
 
 function renderCharts(properties, flowLevel, shadeLevel) {
@@ -91,14 +91,14 @@ function renderChart1(properties, flowLevel) {
     let buurtInfo;
 
     if (totalPop === 0 || buurtData === '0' || Object.keys(buurtData).length === 0) {
-        buurtInfo = 'no data';
+        buurtInfo = 'geen gegevens';
     } else {
         buurtInfo = Object.entries(buurtData)
             .map(([code, count]) => {
                 const percentage = ((count / totalPop) * 100).toFixed(2);
                 const buurt = neighborhoodData.features.find(feature => feature.properties.CBS_Buurtcode === code).properties.Buurt;
                 const buurtCode = code.replace('BU0363', '');
-                return { percentage, buurtInfo: `${percentage}% from ${buurt} (${buurtCode})` };
+                return { percentage, buurtInfo: `${percentage}% van ${buurt} (${buurtCode})` };
             })
             .sort((a, b) => b.percentage - a.percentage)
             .map(entry => entry.buurtInfo)
@@ -106,11 +106,11 @@ function renderChart1(properties, flowLevel) {
     }
 
     chart1.innerHTML = `
-        <div class="chart-title">Modelled Pedestrian Intensity</div>
+        <div class="chart-title">Modelleerde voetgangersintensiteit</div>
         <div class="chart-value">${flowLevel}</div>
-        <div class="chart-sub-title">Estimated age distribution</div>
+        <div class="chart-sub-title">Geschatte leeftijdsverdeling</div>
         <div id="age-group-chart" class="age-group-chart"></div>
-        <div class="chart-sub-title">Neighbourhood of origin</div>
+        <div class="chart-sub-title">Buurt van herkomst</div>
         <div class="chart-tick-label">${buurtInfo}</div>
     `;
     renderAgeGroupChart(properties);
@@ -171,13 +171,13 @@ function renderChart2(properties, shadeLevel) {
     const chart2 = document.getElementById('chart2');
     if (properties.PET === 0) {
         chart2.innerHTML = `
-            <div class="chart-title">Shade Coverage</div>
-            <div class="chart-value">no data</div>
+            <div class="chart-title">Schaduwdekking</div>
+            <div class="chart-value">geen gegevens</div>
         `;
         return;
     }
     chart2.innerHTML = `
-        <div class="chart-title">Shade Coverage</div>
+        <div class="chart-title">Schaduwdekking</div>
         <div class="chart-value">${shadeLevel}</div>
     `;
     renderBarChart(properties);
@@ -286,7 +286,7 @@ function renderChart3(properties) {
     if (properties.PET === 0) {
         chart3.innerHTML = `
             <div class="chart-title">PET</div>
-            <div class="chart-value">no data</div>
+            <div class="chart-value">geen gegevens</div>
         `;
         return;
     }

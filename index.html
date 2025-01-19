@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Mind the Heat</title>
+    <title>Let op de hitte</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="style.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -13,7 +13,7 @@
 
 <body>
     <div class="box controls">
-        <h1 class="title">MIND THE HEAT</h1>
+        <h1 class="title">LET OP DE HITTE</h1>
         <div class="field is-grouped">
             <div class="control">
                 <button id="info-button" class="button info-button">
@@ -39,7 +39,7 @@
         </div>
         <div class="section">
             <div class="field">
-                <label for="city-select" class="label">City:</label>
+                <label for="city-select" class="label">Stad:</label>
                 <div class="control">
                     <select id="city-select" class="select">
                         <option value="amsterdam">Amsterdam</option>
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="field">
-                <label for="neighborhood-select" class="label">Neighborhood:</label>
+                <label for="neighborhood-select" class="label">Buurt:</label>
                 <div class="control">
                     <select id="neighborhood-select" class="select">
                         <option value="all">---</option>
@@ -56,7 +56,7 @@
             </div>
             <div class="field">
                 <div class="control">
-                    <button id="reset-button" class="button reset-button">Reset to City View</button>
+                    <button id="reset-button" class="button reset-button">Reset naar stadsweergave</button>
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
             </div>
             <div class="field" id="shade-slider-container">
                 <div class="control">
-                    <label for="shade-slider">Shade percentage is less than: <strong><span
+                    <label for="shade-slider">Schaduwpercentage is minder dan: <strong><span
                                 id="shade-slider-value">100</span>%</strong></label>
                 </div>
                 <div class="control">
@@ -75,7 +75,7 @@
             </div>
             <div class="field" id="pet-slider-container">
                 <div class="control">
-                    <label for="pet-slider">Mean PET is higher than: <strong><span
+                    <label for="pet-slider">Gemiddelde PET is hoger dan: <strong><span
                                 id="pet-slider-value">0</span>&#8451;</strong></label>
                 </div>
                 <div class="control">
@@ -85,13 +85,13 @@
         </div>
         <div class="section">
             <div class="field">
-                <label class="label">Additional Layers</label>
+                <label class="label">Extra lagen</label>
             </div>
             <div class="field">
                 <div class="control">
                     <label class="checkbox">
                         <input type="checkbox" id="cluster-checkbox">
-                        Show essential service clusters
+                        Essentiële serviceclusters
                     </label>
                 </div>
             </div>
@@ -99,31 +99,31 @@
         </div>
         <div class="legend control" style="margin-top: auto;">
             <div class="legend-section">
-                <div class="legend-title">Heat Stress Risk</div>
+                <div class="legend-title">Risico op hittestress</div>
                 <div class="legend-content">
                     <div class="legend-gradient"></div>
                     <div class="legend-text-container">
-                        <div class="legend-item">High risk</div>
-                        <div class="legend-item">Medium risk</div>
-                        <div class="legend-item">Low risk</div>
+                        <div class="legend-item">Hoog risico</div>
+                        <div class="legend-item">Gemiddeld risico</div>
+                        <div class="legend-item">Laag risico</div>
                     </div>
                 </div>
             </div>
             <div class="legend-section">
-                <div class="legend-title">Pedestrian Intensity</div>
+                <div class="legend-title">Voetgangersintensiteit</div>
                 <div class="legend-content">
                     <div class="legend-line-container">
                         <div class="legend-item">
                             <div class="legend-line thick"></div>
-                            <span>High</span>
+                            <span>Hoog</span>
                         </div>
                         <div class="legend-item">
                             <div class="legend-line medium"></div>
-                            <span>Medium</span>
+                            <span>Gemiddeld</span>
                         </div>
                         <div class="legend-item">
                             <div class="legend-line thin"></div>
-                            <span>Low</span>
+                            <span>Laag</span>
                         </div>
                     </div>
                 </div>
@@ -141,13 +141,13 @@
         </div>
         <div class="chart-container">
             <div id="chart1" class="chart-section">
-                <div class="chart-title">Modelled Pedestrian Intensity</div>
+                <div class="chart-title">Modelleerde voetgangersintensiteit</div>
             </div>
             <div id="chart2" class="chart-section">
-                <div class="chart-title">Shade Index</div>
+                <div class="chart-title">Schaduwindex</div>
             </div>
             <div id="chart3" class="chart-section">
-                <div class="chart-title">PET Mean</div>
+                <div class="chart-title">Gemiddelde PET</div>
             </div>
         </div>
     </div>
@@ -156,26 +156,24 @@
         <div class="modal-background"></div>
         <div class="modal-content">
             <div class="box">
-                <p>Welcome to the <strong>Mind the Heat</strong> dashboard. <br> Here are some tips to get you started:
+                <p>Welkom bij het <strong>Let op de hitte</strong>-dashboard. <br> Hier zijn enkele tips om te beginnen:
                 </p>
                 <ul>
-                    <li>Select a city from the dropdown menu.</li>
-                    <li>Choose a neighborhood to view detailed information.</li>
-                    <li>Click on streets to see more data and charts.</li>
-                    <li>Use the reset button to return to the city view.</li>
-                    <li>Adjust the sliders to filter streets based on specific criteria.</li>
-                    <li>Toggle the checkbox to view additional layers.</li>
+                    <li>Selecteer een stad uit het dropdownmenu.</li>
+                    <li>Kies een buurt om gedetailleerde informatie te bekijken.</li>
+                    <li>Klik op straten om meer gegevens en grafieken te zien.</li>
+                    <li>Gebruik de resetknop om terug te keren naar de stadsweergave.</li>
+                    <li>Pas de schuifregelaars aan om straten te filteren op basis van specifieke criteria.</li>
+                    <li>Schakel het selectievakje in om extra lagen te bekijken.</li>
                 </ul>
-                <p>We use 40% shade coverage and 35 Celcius PET Degrees as thresholds. Streets with shade coverage
-                    greater than 40% and PET Degrees less than 35 Celcius are considered low risk. The final score is
-                    the sum of the standardized scores of these two factors, and the street color reflects this score.
+                <p>We gebruiken 40% schaduwdekking en 35 graden PET als drempels. Straten met meer dan 40% schaduwdekking en minder dan 35 graden PET worden als laag risico beschouwd. 
+                    De eindscore is de som van de gestandaardiseerde scores van deze twee factoren, en de kleur van de straat weerspiegelt deze score.
                 </p>
-                <p>Pedestrian intensity is also considered, represented by the street width.</p>
-                <p>In the city view, we only show the top 4% high-risk streets, which we consider high priority. In
-                    neighborhood mode, you can view information for all streets. For more information, please click <a
-                        href="https://github.com/JulianWDev/mindtheheat/wiki">here</a>.
+                <p>Voetgangersintensiteit wordt ook in overweging genomen, weergegeven door de straatbreedte.</p>
+                <p>In de stadsweergave tonen we alleen de 4% straten met het hoogste risico, die we als hoge prioriteit beschouwen. In de buurtmodus kunt u informatie bekijken voor alle straten. Voor meer informatie klikt u <a
+                        href="https://github.com/JulianWDev/mindtheheat/wiki">hier</a>.
                 </p>
-                <button id="close-modal" class="button got-it-button">Got it!</button>
+                <button id="close-modal" class="button got-it-button">Begrepen!</button>
             </div>
         </div>
     </div>
