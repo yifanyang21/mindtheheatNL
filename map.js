@@ -16,10 +16,10 @@ function createTileLayer(url, attribution) {
     return L.tileLayer(url, { attribution });
 }
 
-let lightTileLayer = createTileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', 
+let lightTileLayer = createTileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
     '&copy; <a href="https://carto.com/attributions">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 );
-let darkTileLayer = createTileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', 
+let darkTileLayer = createTileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
     '&copy; <a href="https://carto.com/attributions">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 );
 
@@ -206,11 +206,11 @@ function applyFilter() {
         })
     };
 
-    const styleFunction = neighborhoodIndex === 'all' ? 
+    const styleFunction = neighborhoodIndex === 'all' ?
         feature => ({
             color: getStreetColor(feature.properties.Final_score_all),
             weight: getStreetWeight_city(feature.properties.jenkins_bin)
-        }) : 
+        }) :
         feature => ({
             color: getStreetColor(feature.properties.Final_score_all),
             weight: getStreetWeight_neighbor(feature.properties.jenkins_bin)
@@ -342,7 +342,7 @@ async function initMap() {
     });
 
     createSliderListener('shade-slider', 'shade-slider-value', value => {
-        currentShadeThreshold = value;
+        currentShadeThreshold = 100 - value;
         applyFilter();
     });
 
