@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Let op de hitte</title>
+    <title>Mind the Heat</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="style.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -13,7 +13,7 @@
 
 <body>
     <div class="box controls">
-        <h1 class="title">LET OP DE HITTE</h1>
+        <h1 class="title">MIND THE HEAT</h1>
         <div class="field is-grouped">
             <div class="control">
                 <button id="info-button" class="button info-button">
@@ -56,7 +56,7 @@
             </div>
             <div class="field">
                 <div class="control">
-                    <button id="reset-button" class="button reset-button">Reset naar stadsweergave</button>
+                    <button id="reset-button" class="button reset-button">Reset naar overzichtsweergave</button>
                 </div>
             </div>
         </div>
@@ -166,12 +166,18 @@
                     <li>Pas de schuifregelaars aan om straten te filteren op basis van specifieke criteria.</li>
                     <li>Schakel het selectievakje in om extra lagen te bekijken.</li>
                 </ul>
-                <p>We gebruiken 40% schaduwdekking en 35 graden PET als drempels. Straten met meer dan 40% schaduwdekking en minder dan 35 graden PET worden als laag risico beschouwd. 
-                    De eindscore is de som van de gestandaardiseerde scores van deze twee factoren, en de kleur van de straat weerspiegelt deze score.
+                <p>We gebruiken 40% schaduwdekking en 35 graden PET als drempels. Straten met meer dan 40%
+                    schaduwdekking en minder dan 35 graden PET worden als laag risico beschouwd.
+                    De eindscore is de som van de gestandaardiseerde scores van deze twee factoren, en de kleur van de
+                    straat weerspiegelt deze score.
                 </p>
-                <p>Voetgangersintensiteit wordt ook in overweging genomen, weergegeven door de straatbreedte.</p>
-                <p>In de stadsweergave tonen we alleen de 4% straten met het hoogste risico, die we als hoge prioriteit beschouwen. In de buurtmodus kunt u informatie bekijken voor alle straten. Voor meer informatie klikt u <a
-                        href="https://github.com/JulianWDev/mindtheheat/wiki">hier</a>.
+                <p>De tool neemt ook de voetgangersintensiteit mee in de berekening. Deze wordt weergegeven middels de
+                    dikte van de straat.</p>
+                <p>In de overzichtsweergave tonen we alleen de 4% straten met het hoogste risico, die we als hoge
+                    prioriteit
+                    beschouwen. In de buurtmodus kunt u informatie bekijken voor alle straten. U kunt <a
+                        href="https://github.com/JulianWDev/mindtheheat/wiki">hier</a> meer informatie vinden over de
+                    berekeningen en methodes achter deze tool .
                 </p>
                 <button id="close-modal" class="button got-it-button">Begrepen!</button>
             </div>
