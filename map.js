@@ -183,7 +183,12 @@ let buurtData = null;
 function createSliderListener(sliderId, valueId, callback) {
     document.getElementById(sliderId).addEventListener('input', function () {
         const value = parseFloat(this.value);
-        document.getElementById(valueId).textContent = value;
+        if (sliderId === 'shade-slider') {
+            currentShadeThreshold = value;
+            document.getElementById(valueId).textContent = 100 - currentShadeThreshold;
+        } else {
+            document.getElementById(valueId).textContent = value;
+        }
         callback(value);
     });
 }
@@ -342,7 +347,7 @@ async function initMap() {
     });
 
     createSliderListener('shade-slider', 'shade-slider-value', value => {
-        currentShadeThreshold = 100 - value;
+        currentShadeThreshold = value;
         applyFilter();
     });
 
